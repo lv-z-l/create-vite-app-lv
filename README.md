@@ -10,5 +10,8 @@
 
 #### 使用说明
 
-create-vite-app-lv <your-directory>
+1. create-vite-app-lv my-app
+2. yarn create vite-app-lv my-app
+3. npx create-vite-app-lv my-app
+4. npm init vite-app-lv my-app
 
