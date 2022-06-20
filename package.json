@@ -1,6 +1,6 @@
 {
   "name": "create-vite-app-lv",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "create-vite-app",
   "main": "index.js",
   "dependencies": {
