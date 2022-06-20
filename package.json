@@ -10,7 +10,7 @@
     "ora": "^5.4.1"
   },
   "repository": {
-    "url": "https://www.npmjs.com/package/create-vite-app-lv"
+    "url": "https://gitee.com/lvzhenglei/create-vite-app-lv.git"
   },
   "bin": {
     "create-vite-app-lv": "./index.js"
