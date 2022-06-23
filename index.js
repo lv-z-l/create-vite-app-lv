@@ -14,9 +14,10 @@ const { Command } = require('commander')
 let process = 0
 
 const { genFilePathArray, writeFiles, download } = require('./io')
-
+const { log } = console
 const program = new Command()
-
+let start = 0
+let end = 0
 program
   .name('create-vite-app')
   .description('create-vite-app to do sth')
@@ -24,22 +25,26 @@ program
   .arguments('<project-directory>') 
   .description('clone a repository into a newly created directory')
   .action(directory => {
-    console.log(chalk.red.bold('❤️ Welcome to create-vite-app ❤️'))
-    console.log(`Wait a mininute, ${chalk.green.bold('vite app template')} will be installed to ${chalk.green.bold(directory)}`)
+    start = Date.now()
+    log(chalk.red.bold(`Welcome to create-vite-app`))
+    log(`Wait a mininute, ${chalk.green.bold('vite-vue3-ts app template')} will be installed to ${chalk.green.bold(directory)}`)
     // const filePathArray = genFilePathArray('./resource')
     // writeFiles(filePathArray, 'src')
     const spinner = ora(chalk.hex('#DEADED').bold("👻 I'm trying......")).start()
     spinner.color = 'green'
     download('https://gitee.com/lvzhenglei/vue3-demo-admin.git', directory).then(() => {
+      end = Date.now()
       spinner.stop()
-      console.log(chalk.green.bold('success'))
-      console.log(`
-cd ${directory}
-yarn or npm i
-yarn dev or npm run dev
+      log(chalk.green.bold(`success in ${(end - start) / 1000} s`))
+      log(`
+then, you can do like this:
+1. cd ${directory}
+2. yarn / npm i
+3. yarn dev / npm run dev
       `)
     }).catch(err => {
-      console.log(chalk.red.bold('fail'))
+      log(chalk.red.bold('fail'))
+      log(err)
       spinner.stop()
     })
   })
@@ -50,10 +55,10 @@ yarn dev or npm run dev
 program.parse()
 
 // const options = program.opts();
-// console.log('you ordered a pizza with:');
-// if (options.peppers) console.log('  - peppers');
+// log('you ordered a pizza with:');
+// if (options.peppers) log('  - peppers');
 // const cheese = !options.cheese ? 'no' : options.cheese;
-// console.log('  - %s cheese', cheese);
+// log('  - %s cheese', cheese);
 
 // const interval = setInterval(()=>{
 //   process += 10
@@ -63,5 +68,5 @@ program.parse()
 // setTimeout(()=>{
 //   clearInterval(interval)
 //   spinner.stop()
-//   console.log(chalk.green.bold('Success'))
+//   log(chalk.green.bold('Success'))
 // }, 11000)
