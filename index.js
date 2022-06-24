@@ -13,7 +13,7 @@ const { Command } = require('commander')
 // const inquirer = require('inquirer')
 let process = 0
 
-const { genFilePathArray, writeFiles, download } = require('./io')
+const { download } = require('./io')
 const { log } = console
 const program = new Command()
 let start = 0
