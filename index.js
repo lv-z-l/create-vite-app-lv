@@ -8,7 +8,7 @@ const chalk = require('chalk')
 // // 路径处理
 // const path = require('path')
 // // 命令
-const { Command } = require('commander')
+const { Command, Argument } = require('commander')
 // // 交互
 // const inquirer = require('inquirer')
 let process = 0
@@ -20,19 +20,20 @@ let start = 0
 let end = 0
 program
   .name('create-vite-app')
-  .description('create-vite-app to do sth')
   .version('1.0.0', '-v, --version')
-  .arguments('<project-directory>') 
-  .description('clone a repository into a newly created directory')
-  .action(directory => {
+  .argument('<project-directory>')
+  .addArgument(new Argument('[project]', 'download repository type').choices(['basic', 'demo-admin']))
+  .description('clone a optional repository into a newly created <project-directory>')
+  .action((directory, project) => {
     start = Date.now()
     log(chalk.red.bold(`Welcome to create-vite-app`))
     log(`Wait a mininute, ${chalk.green.bold('vite-vue3-ts app template')} will be installed to ${chalk.green.bold(directory)}`)
     // const filePathArray = genFilePathArray('./resource')
     // writeFiles(filePathArray, 'src')
     const spinner = ora(chalk.hex('#DEADED').bold("👻 I'm trying......")).start()
+    const repository = project === 'basic' ? 'useVue3' : 'vue3-demo-admin'
     spinner.color = 'green'
-    download('https://gitee.com/lvzhenglei/vue3-demo-admin.git', directory).then(() => {
+    download(`https://gitee.com/lvzhenglei/${repository}.git`, directory).then(() => {
       end = Date.now()
       spinner.stop()
       log(chalk.green.bold(`success in ${(end - start) / 1000} s`))
@@ -48,25 +49,6 @@ then, you can do like this:
       spinner.stop()
     })
   })
-// .option('-p, --peppers', 'Add peppers')
-// .option('-c, --cheese <type>', 'Add the specified type of cheese', 'marble')
-// .option('-C, --no-cheese', 'You do not want any cheese');
+
 
 program.parse()
-
-// const options = program.opts();
-// log('you ordered a pizza with:');
-// if (options.peppers) log('  - peppers');
-// const cheese = !options.cheese ? 'no' : options.cheese;
-// log('  - %s cheese', cheese);
-
-// const interval = setInterval(()=>{
-//   process += 10
-//   spinner.text = process + '%'
-// }, 1000)
-
-// setTimeout(()=>{
-//   clearInterval(interval)
-//   spinner.stop()
-//   log(chalk.green.bold('Success'))
-// }, 11000)
