@@ -16,13 +16,18 @@ let process = 0
 const { download } = require('./io')
 const { log } = console
 const program = new Command()
+const repositoryMap = {
+  basic: 'useVue3',
+  'demo-admin': 'vue3-demo-admin',
+  lib: 'vue-next-lib-template'
+}
 let start = 0
 let end = 0
 program
   .name('create-vite-app')
   .version('1.0.0', '-v, --version')
   .argument('<project-directory>')
-  .addArgument(new Argument('[project]', 'download repository type').choices(['basic', 'demo-admin']))
+  .addArgument(new Argument('[project]', 'download repository type').choices(['basic', 'demo-admin', 'lib']))
   .description('clone a optional repository into a newly created <project-directory>')
   .action((directory, project) => {
     start = Date.now()
@@ -31,24 +36,25 @@ program
     // const filePathArray = genFilePathArray('./resource')
     // writeFiles(filePathArray, 'src')
     const spinner = ora(chalk.hex('#DEADED').bold("👻 I'm trying......")).start()
-    const repository = project === 'basic' ? 'useVue3' : 'vue3-demo-admin'
+    const repository = project ? repositoryMap[project] || 'useVue3' : 'useVue3'
     spinner.color = 'green'
-    download(`https://gitee.com/lvzhenglei/${repository}.git`, directory).then(() => {
-      end = Date.now()
-      spinner.stop()
-      log(chalk.green.bold(`success in ${(end - start) / 1000} s`))
-      log(`
+    download(`https://gitee.com/lvzhenglei/${repository}.git`, directory)
+      .then(() => {
+        end = Date.now()
+        spinner.stop()
+        log(chalk.green.bold(`success in ${(end - start) / 1000} s`))
+        log(`
 then, you can do like this:
 1. cd ${directory}
 2. yarn / npm i
 3. yarn dev / npm run dev
       `)
-    }).catch(err => {
-      log(chalk.red.bold('fail'))
-      log(err)
-      spinner.stop()
-    })
+      })
+      .catch(err => {
+        log(chalk.red.bold('fail'))
+        log(err)
+        spinner.stop()
+      })
   })
-
 
 program.parse()

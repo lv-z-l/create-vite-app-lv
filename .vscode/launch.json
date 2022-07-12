@@ -1,12 +1,11 @@
 {
   "version": "0.2.0",
   "configurations": [
-  
     {
       "type": "node-terminal",
       "name": "Run Script: test",
       "request": "launch",
-      "command": "create-vite-app-lv sss",
+      "command": "create-vite-app-lv sss lib",
       "cwd": "${workspaceFolder}"
     }
   ]

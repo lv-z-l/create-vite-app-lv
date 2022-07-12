@@ -7,6 +7,7 @@
 可选的模板有：
 - https://github.com/lv-z-l/useVue3 基础
 - https://github.com/lv-z-l/vue3-demo-admin 包含一些demo
+- https://github.com/lv-z-l/vue-next-lib-template.git 用来开发库的模板
 
 - 目录
 
@@ -23,7 +24,7 @@ clone a repository into a newly created <project-directory>
 
 Arguments:
   project-directory
-  project            download repository type (choices: "basic", "demo-admin")
+  project            download repository type (choices: "basic", "demo-admin", "lib")
 
 Options:
   -v, --version      output the version number
